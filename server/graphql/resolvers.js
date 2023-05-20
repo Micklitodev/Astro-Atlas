@@ -22,7 +22,7 @@ const resolvers = {
       const token = signToken(user)
       return { user, token};
     },
-    logIn: async (_, {email, password}) => {
+    login: async (_, {email, password}) => {
       const user = await User.findOne({email})
       if (!user) {
         throw new AuthenticationError('email or password incorrect, please try again. ')
