@@ -7,7 +7,9 @@ import {
   Button,
 } from "react-bootstrap";
 
-import { getMe, deleteBook } from "../utils/API";
+import {useQuery, useMutation} from '@apollo/client'
+import {GET_CURR_USER} from '../utils/queries'
+import {DEL_BOOK} from '../utils/queries'
 import Auth from "../utils/auth";
 import { removeBookId } from "../utils/localStorage";
 
