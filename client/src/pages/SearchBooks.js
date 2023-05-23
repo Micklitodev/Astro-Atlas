@@ -63,6 +63,7 @@ const SearchBooks = () => {
   };
 
   const handleSaveBook = async (bookId) => {
+
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
 
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -72,10 +73,11 @@ const SearchBooks = () => {
     }
 
     try {
+    console.log(bookToSave)
      const { data } = await saveBook({
-      variables: { input: bookToSave}
-     })
-     
+      variables: { input: bookToSave }
+      });
+
      if(!data) {
       throw new Error('save failed! please try again. ')
      } else {

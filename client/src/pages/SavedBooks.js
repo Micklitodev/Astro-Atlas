@@ -16,33 +16,39 @@ import { removeBookId } from "../utils/localStorage";
 
 const SavedBooks = () => {
   const {loading, data} = useQuery(GET_CURR_USER)
-  const [delBook] = useMutation(DEL_BOOK)
+
+  console.log(data)
+
+  // const [delBook] = useMutation(DEL_BOOK)
 
   const userData = data?.currUser || {}
 
+  // console.log(userData)
+ 
 
-  const handleDeleteBook = async (bookId) => {
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-    if (!token) {
-      return false;
-    }
+  // const handleDeleteBook = async (bookId) => {
+  //   const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-    try {
+  //   if (!token) {
+  //     return false;
+  //   }
 
-       await delBook({
-        variables: {bookId}
-      })
+  //   try {
 
-      removeBookId(bookId)
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  //      const { data} = await delBook({
+  //       variables: {bookId}
+  //     })
 
-  if (loading) {
-    return <h2>LOADING...</h2>;
-  }
+  //     removeBookId(bookId)
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+
+  // if (loading) {
+  //   return <h2>LOADING...</h2>;
+  // }
 
   return (
     <>
@@ -51,7 +57,7 @@ const SavedBooks = () => {
           <h1>Viewing saved books!</h1>
         </Container>
       </Jumbotron>
-      <Container>
+      {/* <Container>
         <h2>
           {userData.savedBooks.length
             ? `Viewing ${userData.savedBooks.length} saved ${
@@ -85,7 +91,7 @@ const SavedBooks = () => {
             );
           })}
         </CardColumns>
-      </Container>
+      </Container> */}
     </>
   );
 };
