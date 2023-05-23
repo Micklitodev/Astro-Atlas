@@ -13,12 +13,19 @@ import Auth from "../utils/auth";
 import { saveBook, searchGoogleBooks } from "../utils/API";
 import { saveBookIds, getSavedBookIds } from "../utils/localStorage";
 
+import { SAVE_BOOK } from '../utils/mutation'
+import { useMutation } from "@apollo/client";
+
+
 const SearchBooks = () => {
   const [searchedBooks, setSearchedBooks] = useState([]);
 
   const [searchInput, setSearchInput] = useState("");
 
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
+
+
+  const [saveBook] = useMutation(SAVE_BOOK)
 
   useEffect(() => {
     return () => saveBookIds(savedBookIds);
@@ -65,16 +72,19 @@ const SearchBooks = () => {
     }
 
     try {
-      const response = await saveBook(bookToSave, token);
-
-      if (!response.ok) {
-        throw new Error("something went wrong!");
-      }
-
-      setSavedBookIds([...savedBookIds, bookToSave.bookId]);
+     const { data } = await saveBook({
+      variables: { input: bookToSave}
+     })
+     
+     if(!data) {
+      throw new Error('save failed! please try again. ')
+     } else {
+      setSavedBookIds([...saveBookIds, bookToSave.bookId])
+     }
     } catch (err) {
       console.error(err);
     }
+
   };
 
   return (
