@@ -7,10 +7,10 @@ const { authMiddleware } = require('./utils/auth')
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: authMiddleware,
+   context: authMiddleware
 })
 
 db.once('open', () => {
-  console.log('sucess')
+  console.log('success')
   return server.listen({port: 4000})
 }) 

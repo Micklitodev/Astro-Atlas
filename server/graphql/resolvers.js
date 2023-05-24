@@ -5,10 +5,10 @@ const { signToken } = require("../utils/auth");
 const resolvers = {
   Query: {
     currUser: async (_, args, context) => {
-      if (context.user) {
-        const userData = await User.findOne({ _id: context.user._id }).select(
-          "-_v -password"
-        ).populate('books')
+      if (context) {
+        const userData = await User.findOne({ _id: context._id })
+          .select("-_v -password")
+          .populate("books");
         return userData;
       } else {
         throw new AuthenticationError("please log in");
@@ -39,26 +39,26 @@ const resolvers = {
       return { user, token };
     },
 
-    saveBook: async (_, args , context) => {
-      if (!context.user) {
-        console.log(context)
-        console.log(args)
+    saveBook: async (_, args, context) => {
+      if (!context._id) {
+        throw new AuthenticationError("err");
       }
+
       const addBookToUser = await User.findByIdAndUpdate(
-        { _id: context.user._id },
+        { _id: context._id },
         { $addToSet: { savedBooks: args.input } },
         { new: true }
       );
       return addBookToUser;
     },
 
-    delBook: async (_, args , context) => {
-      if (!context.user) {
+    delBook: async (_,  args , context) => {
+      if (!context) {
         throw new AuthenticationError("Please log in first!");
       }
       const removeBookFromUser = await User.findByIdAndUpdate(
-        { _id: context.user._id },
-        { $pull: { savedBooks: { bookId: args.bookId } } },
+        { _id: context._id },
+        { $pull: { savedBooks: { bookId: args.bookId } } }
       );
       return removeBookFromUser;
     },

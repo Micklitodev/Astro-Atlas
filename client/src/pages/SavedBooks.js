@@ -9,46 +9,41 @@ import {
 
 // import {getMe, deleteBook} from '../utils/API'
 import { useQuery, useMutation } from "@apollo/client";
-import { GET_CURR_USER } from "../utils/queries";
-import { DEL_BOOK } from "../utils/mutation";
+import { GET_CURRUSER } from "../utils/query";
+import { DEL_BOOK } from "../utils/mutation"
 import Auth from "../utils/auth";
 import { removeBookId } from "../utils/localStorage";
 
 const SavedBooks = () => {
-  const {loading, data} = useQuery(GET_CURR_USER)
+  const {loading, data} = useQuery(GET_CURRUSER)
 
-  console.log(data)
-
-  // const [delBook] = useMutation(DEL_BOOK)
-
-  const userData = data?.currUser || {}
-
-  // console.log(userData)
+   const userData = data?.currUser || {}
  
+  const [deleteBook] = useMutation(DEL_BOOK)
 
+  const handleDeleteBook = async (bookId) => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-  // const handleDeleteBook = async (bookId) => {
-  //   const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) {
+      return false;
+    }
 
-  //   if (!token) {
-  //     return false;
-  //   }
+    try {
+      console.log(bookId)
+       const { data } = await deleteBook({
+        variables: {bookId}
+      })
+       console.log(data)
+       removeBookId(bookId)
+       window.location.href = '/saved'
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-  //   try {
-
-  //      const { data} = await delBook({
-  //       variables: {bookId}
-  //     })
-
-  //     removeBookId(bookId)
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-
-  // if (loading) {
-  //   return <h2>LOADING...</h2>;
-  // }
+  if (loading) {
+    return <h2>LOADING...</h2>;
+  }
 
   return (
     <>
@@ -57,7 +52,7 @@ const SavedBooks = () => {
           <h1>Viewing saved books!</h1>
         </Container>
       </Jumbotron>
-      {/* <Container>
+      <Container>
         <h2>
           {userData.savedBooks.length
             ? `Viewing ${userData.savedBooks.length} saved ${
@@ -91,7 +86,7 @@ const SavedBooks = () => {
             );
           })}
         </CardColumns>
-      </Container> */}
+      </Container>
     </>
   );
 };

@@ -55,12 +55,12 @@ export const SAVE_BOOK = gql`
 
 
 export const DEL_BOOK = gql`
-mutation delBook($bookId: ID!){
-  delBook(bookId: $bookId) {
+mutation delBook($bookId: String!){
+  delBook (bookId: $bookId) {
     _id
     username
     email
-    saveBook {
+    savedBooks {
       bookId
       authors
       image

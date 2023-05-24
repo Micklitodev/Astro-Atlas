@@ -73,16 +73,16 @@ const SearchBooks = () => {
     }
 
     try {
-    console.log(bookToSave)
+   
      const { data } = await saveBook({
       variables: { input: bookToSave }
       });
 
      if(!data) {
       throw new Error('save failed! please try again. ')
-     } else {
-      setSavedBookIds([...saveBookIds, bookToSave.bookId])
-     }
+     } 
+      setSavedBookIds([saveBookIds, bookToSave.bookId])
+     
     } catch (err) {
       console.error(err);
     }

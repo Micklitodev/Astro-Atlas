@@ -1,12 +1,11 @@
 import { gql } from "@apollo/client";
 
-export const GET_CURR_USER = gql`
+export const GET_CURRUSER = gql`
   {
     currUser {
       _id
       username
       email
-      bookCount
       savedBooks {
         bookId
         authors
