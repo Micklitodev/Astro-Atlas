@@ -4,6 +4,8 @@ const db = require('./config/connection')
 const {typeDefs, resolvers} = require('./graphql')
 const { authMiddleware } = require('./utils/auth')
 
+const PORT = process.env.PORT || 3001
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -12,5 +14,5 @@ const server = new ApolloServer({
 
 db.once('open', () => {
   console.log('success')
-  return server.listen({port: 3001})
+  return server.listen({port: PORT})
 }) 
