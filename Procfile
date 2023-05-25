@@ -1,3 +1,3 @@
-client: 'npm run startclient'
-server: 'npm run startserver'
+client: npm run startclient
+server: npm run startserver
 
