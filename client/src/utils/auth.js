@@ -37,4 +37,5 @@ class AuthService {
   }
 }
 
-export default new AuthService();
+// eslint-disable-next-line
+export default new AuthService();     
