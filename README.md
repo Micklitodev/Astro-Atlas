@@ -21,13 +21,13 @@
 
   ## Link
   
-  [Click Here](/notyet) to go to the repo link.
+  [Click Here](https://astro-atlas.herokuapp.com/) to go to the deployed link.
   
 
 
   ## Screenshot
   
-  ![image](/client/public/astroatlas.png)
+  ![image](/client/assets/astroatlas.png)
   
 
   
