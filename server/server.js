@@ -12,6 +12,13 @@ const server = new ApolloServer({
    context: authMiddleware
 })
 
+server.static('/static', join(__dirname, '../client/build/static'));
+
+server.get('*', (req, res) => {
+  res.sendFile(join(__dirname, '../client/build/index.html'));
+});
+
+
 db.once('open', () => {
   console.log('success')
   return server.listen({port: PORT})
