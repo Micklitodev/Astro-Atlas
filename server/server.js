@@ -12,5 +12,5 @@ const server = new ApolloServer({
 
 db.once('open', () => {
   console.log('success')
-  return server.listen({port: 4000})
+  return server.listen({port: 3001})
 }) 
