@@ -4,6 +4,8 @@ const db = require('./config/connection')
 const {typeDefs, resolvers} = require('./graphql')
 const { authMiddleware } = require('./utils/auth')
 
+const path = require('path')
+
 const PORT = process.env.PORT || 3001
 
 const server = new ApolloServer({
@@ -12,10 +14,10 @@ const server = new ApolloServer({
    context: authMiddleware
 })
 
-server.static('/static', join(__dirname, '../client/build/static'));
+server.static(path.join(__dirname, '../client/build'));
 
 server.get('*', (req, res) => {
-  res.sendFile(join(__dirname, '../client/build/index.html'));
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
 
