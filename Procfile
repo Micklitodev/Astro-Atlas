@@ -1,2 +1,3 @@
-client: sh -c 'cd client && npm run start'
+client: 'npm run startclient'
+server: 'npm run startserver'
 
