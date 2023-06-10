@@ -65,7 +65,7 @@
   current time information. Also, if it pertains to a bug, Please, use a clear,
   legible, instructions on how to recreate this bug as well as any videos or 
   screenshots will be appriciated. Please also make the subject the specified project
-  name with a short description of what the contact pertains to. Thank you! 
+  name with a short description of what the contact pertains to. Thank you!  
 
   
   ## License
